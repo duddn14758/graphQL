@@ -6,8 +6,25 @@ type Person{
 }
 
 type Query{
-    movies : [Movie]!
+    movies: [Movie]!
     movie(id: Int!): Movie
+    content_by_title(title: String!): Content 
+    histories_by_title(title: String!): [History]
+    histories_by_id(id: String!): [History]
+}
+
+type Content{
+    title: String!
+    contents: String!
+    classify: String!
+}
+
+type History{
+    edit_code: Int!
+    title: String!
+    id: String!
+    edit_contents: String!
+    date: String!
 }
 
 type Movie{
@@ -17,6 +34,7 @@ type Movie{
 }
 
 type Mutation{
-    addMovie(name: String!, score: Int!): Movie!,
+    addMovie(name: String!, score: Int!): Movie!
     deleteMovie(id: Int!): Boolean!
+    addContent(title: String!,contents: String,classify: String): Content
 }
