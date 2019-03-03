@@ -12,6 +12,11 @@ type Query{
     histories_by_title(title: String!): [History]
     histories_by_id(id: String!): [History]
     linking_parents_to_child(title: String!,refNum: Int): Reference!
+    
+    all_history: [History]!
+    check_user_info(id:String!,password:String!): UserInfo
+    userinfo_by_id(id:String!): UserInfo
+    findId(name:String! email:String!): UserInfo
 }
 
 type Content{
@@ -34,6 +39,16 @@ type Reference{
     child: String!    
 }
 
+type UserInfo{
+    id: String!
+    name: String!
+    nick_name: String!
+    password: String!
+    email: String!
+    is_signed: Boolean!
+    token: Int!
+}
+
 type Movie{
     id: Int!,
     name: String!,
@@ -45,5 +60,8 @@ type Mutation{
     deleteMovie(id: Int!): Boolean!
     addContent(title: String!,contents: String,classify: String): Content!
     addReference(parents: String!,child: String!): Reference
-    addHistory(title:String! ,id:String! ,contents:String): History
+    addHistory(title: String! ,id: String! ,contents: String): History
+
+    addSignUp(id:String! name:String! password: String nickName:String! email:String!):UserInfo!
+    deleteAccount(id:String!):Boolean!
 }

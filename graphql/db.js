@@ -68,7 +68,7 @@ let user_info=[
         password:"1234",
         email:"duddn14758@naver.com",
         is_signed:true,
-        token:1
+        token:123
     }
 ];
 
@@ -183,3 +183,46 @@ export const addHistory = (title,id,edit_contents) => {
     
     return newHistory;
 }
+
+///
+
+export const searchAllHistory = () => history;
+
+export const login = (id,password)=>{
+    const checkAccount = user_info.filter(user => id===user.id & user.is_signed & password == user.password);
+    return checkAccount[0];
+};
+
+export const findUserInfoById=(id)=>{
+    const checkId = user_info.filter(user => id == user.id);
+    return checkId[0];
+};
+
+export const findId=(name,email)=>{
+    const showId = user_info.filter(user => name == user.name && email == user.email);
+   return showId[0];
+};
+
+export const addSignUp=(id,name,password,nick_name,email)=>{
+    const newAccount ={
+        id,
+        name,
+        password,
+        nick_name,
+        email,
+        is_signed: false,
+        token: 1234
+    };
+    user_info.push(newAccount);
+    return newAccount;
+};
+
+export const deleteAccount = (id)=>{
+    const finalCheck = user_info.filter(user => id != user.id);
+    if(user_info.length > finalCheck.length){
+        user_info = finalCheck;
+        return true;
+    }else {
+        return false;
+    }
+};
