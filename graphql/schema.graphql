@@ -11,6 +11,7 @@ type Query{
     content_by_title(title: String!): Content 
     histories_by_title(title: String!): [History]
     histories_by_id(id: String!): [History]
+    linking_parents_to_child(title: String!,refNum: Int): Reference!
 }
 
 type Content{
@@ -27,6 +28,12 @@ type History{
     date: String!
 }
 
+type Reference{
+    reference_number: Int!
+    parents: String!
+    child: String!    
+}
+
 type Movie{
     id: Int!,
     name: String!,
@@ -36,5 +43,7 @@ type Movie{
 type Mutation{
     addMovie(name: String!, score: Int!): Movie!
     deleteMovie(id: Int!): Boolean!
-    addContent(title: String!,contents: String,classify: String): Content
+    addContent(title: String!,contents: String,classify: String): Content!
+    addReference(parents: String!,child: String!): Reference
+    addHistory(title:String! ,id:String! ,contents:String): History
 }

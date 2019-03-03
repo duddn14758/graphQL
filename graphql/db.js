@@ -18,9 +18,14 @@ let info_list = [
 
 let reference = [
     {
-        reference:1,
         parents:"title1",
+        reference_number:1,
         child:"title2"
+    },
+    {
+        parents:"부경대학교",
+        reference_number:1,
+        child:"title1"
     }
 ];
 
@@ -58,11 +63,12 @@ let history=[
 let user_info=[
     {
         id:"young",
+        name: "김영우",
         nick_name:"duddn14758",
         password:"1234",
         email:"duddn14758@naver.com",
         is_signed:true,
-        token:true
+        token:1
     }
 ];
 
@@ -80,6 +86,12 @@ export const getHistoriesByTitle = title => {
 export const getHistoriesById = id => {
     const filteredHistories = history.filter(histories => histories.id === id);
     return filteredHistories;
+}
+
+export const getLinkedReference = (title,refNum) => {
+    const filteredReference = reference.filter(ref => (title === ref.parents)&&(refNum===ref.reference_number));
+    console.log(filteredReference[0].child);
+    return filteredReference[0];
 }
 
 export const getById = id => {
@@ -143,4 +155,31 @@ export const addContent = (title,contents,classify) => {
     info_list.push(newContent);
     console.log("add "+newContent.title);
     return newContent;
+}
+
+export const addReference = (parents,child) => {
+    const checkedReference = reference.filter(ref => ref.parents === parents);
+    const newReference = {
+        parents,
+        reference_number: `${checkedReference.length+1}`,
+        child
+    };
+    reference.push(newReference);
+    console.log("add "+newReference.parents+" to "+newReference.child+" by refNum "+(checkedReference.length+1));
+    return newReference;
+}
+
+export const addHistory = (title,id,edit_contents) => {
+    let cur=new Date();
+
+    const newHistory = {
+        edit_code:history.length+1,
+        title,
+        id,
+        edit_contents,
+        date: cur.getFullYear()+"-"+(cur.getMonth()+1)+"-"+cur.getDate()
+    };
+    history.push(newHistory);
+    
+    return newHistory;
 }
